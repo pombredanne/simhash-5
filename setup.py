@@ -4,12 +4,12 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'simhash',
-    version = '1.7.0',
+    version = '1.8.0',
     keywords = ('simhash'),
     description = 'A Python implementation of Simhash Algorithm',
     license = 'MIT License',
 
-    url = 'https://leons.im/posts/a-python-implementation-of-simhash-algorithm/',
+    url = 'http://leons.im/posts/a-python-implementation-of-simhash-algorithm/',
     author = '1e0n',
     author_email = 'i@leons.im',
 
@@ -17,4 +17,11 @@ setup(
     include_package_data = True,
     platforms = 'any',
     install_requires = [],
+    tests_require = [
+        'nose',
+        'numpy',
+        'scipy',
+        'scikit-learn',
+        ],
+    test_suite = "nose.collector",
 )
