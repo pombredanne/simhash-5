@@ -1,10 +1,11 @@
 # Created by 1e0n in 2013
 from __future__ import division, unicode_literals
 
-import sys
 import re
+import sys
 import hashlib
 import logging
+import numbers
 import collections
 from itertools import groupby
 
@@ -57,10 +58,18 @@ class Simhash(object):
             self.build_by_text(unicode(value))
         elif isinstance(value, collections.Iterable):
             self.build_by_features(value)
-        elif isinstance(value, long):
+        elif isinstance(value, numbers.Integral):
             self.value = value
         else:
             raise Exception('Bad parameter with type {}'.format(type(value)))
+
+    def __eq__(self, other):
+        """
+        Compare two simhashes by their value.
+
+        :param Simhash other: The Simhash object to compare to
+        """
+        return self.value == other.value
 
     def _slide(self, content, width=4):
         return [content[i:i + width] for i in range(max(len(content) - width + 1, 1))]

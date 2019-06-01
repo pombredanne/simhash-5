@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 from unittest import main, TestCase
 
-from simhash import Simhash, SimhashIndex
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+from simhash import Simhash, SimhashIndex
+
+
 class TestSimhash(TestCase):
+
+    def test_int_value(self):
+        self.assertEqual(Simhash(0).value, 0)
+        self.assertEqual(Simhash(4390059585430954713).value, 4390059585430954713)
+        self.assertEqual(Simhash(9223372036854775808).value, 9223372036854775808)
 
     def test_value(self):
         self.assertEqual(Simhash(['aaa', 'bbb']).value, 57087923692560392)
@@ -75,6 +81,14 @@ class TestSimhash(TestCase):
         # different results
         self.assertNotEqual(Simhash(dict_features).value,
                             Simhash(data[0]).value)
+
+    def test_equality_comparison(self):
+        a = Simhash('My name is John')
+        b = Simhash('My name is John')
+        c = Simhash('My name actually is Jane')
+
+        self.assertEqual(a, b, 'A should equal B')
+        self.assertNotEqual(a, c, 'A should not equal C')
 
 
 class TestSimhashIndex(TestCase):
